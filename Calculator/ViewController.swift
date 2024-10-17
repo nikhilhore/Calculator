@@ -9,6 +9,16 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    lazy var textLabel: CustomLabel = {
+        let label = CustomLabel()
+        label.text = "Hello, World!"
+        label.textAlignment = .right
+        label.textColor = .black
+        label.font = UIFont(name: "Noteworthy-Bold", size: 24.0)
+        label.backgroundColor = .yellow
+        return label
+    }()
+
     lazy var oneImageView = makeImageView("one")
 
     lazy var twoImageView = makeImageView("two")
@@ -88,6 +98,7 @@ class ViewController: UIViewController {
     lazy var verticalStackView: UIStackView = {
         let stackView = UIStackView(
             arrangedSubviews: [
+                textLabel,
                 firstHorizontalStackView,
                 secondHorizontalStackView,
                 thirdHorizontalStackView,
@@ -116,7 +127,7 @@ class ViewController: UIViewController {
                 .constraint(equalTo: view.centerXAnchor),
             verticalStackView.centerYAnchor
                 .constraint(equalTo: view.centerYAnchor),
-            verticalStackView.heightAnchor.constraint(equalToConstant: 365.0),
+            verticalStackView.heightAnchor.constraint(equalToConstant: 440.0),
             verticalStackView.widthAnchor.constraint(equalToConstant: 290.0)
         ])
     }
@@ -134,5 +145,13 @@ class ViewController: UIViewController {
         stackView.spacing = 10
         stackView.distribution = distribution
         return stackView
+    }
+}
+
+class CustomLabel: UILabel {
+    let insets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+
+    override func drawText(in rect: CGRect) {
+        super.drawText(in: rect.inset(by: insets))
     }
 }
